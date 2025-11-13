@@ -20,6 +20,7 @@ pipeline{
         }
         stage('Install Dependencies') {
             steps {
+                sh "npm config set cache .npm_cache --location=project"
                 sh "npm install"
             }
         }
