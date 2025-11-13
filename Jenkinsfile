@@ -29,10 +29,11 @@ pipeline{
         withSonarQubeEnv('SonarQube') {
             // Set HOME to the workspace to force the cache to be created there
             sh '''
-                export HOME=\$WORKSPACE
-                $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
-                -Dsonar.projectKey=Hotstar
-                -Dsonar.scanner.home=.
+                sh '''
+                $SCANNER_HOME/bin/sonar-scanner \
+                -Dsonar.projectName=Hotstar \
+                -Dsonar.projectKey=Hotstar \
+                -Dsonar.scanner.home=$WORKSPACE
             '''
         }
     }
