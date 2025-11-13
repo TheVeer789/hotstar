@@ -26,18 +26,8 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
     steps{
-        script { // Use script block to handle credentials
-            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
-                withSonarQubeEnv('SonarQube') {
-                    sh '''
-                        $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=Hotstar \
-                        -Dsonar.projectKey=Hotstar \
-                        -Dsonar.userHome=$WORKSPACE \
-                        -Dsonar.token=$SONAR_AUTH_TOKEN  // <-- Inject the token
-                    '''
-                }
-            }
+        withSonarQubeEnv('SonarQube') {
+           sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar -Dsonar.projectKey=Hotstar -Dsonar.userHome=$WORKSPACE'''
         }
     }
 }
