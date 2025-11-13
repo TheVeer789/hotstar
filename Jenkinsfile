@@ -31,11 +31,11 @@ pipeline{
                 $SCANNER_HOME/bin/sonar-scanner \
                 -Dsonar.projectName=Hotstar \
                 -Dsonar.projectKey=Hotstar \
-                -Dsonar.scanner.home=$WORKSPACE 
+                -Dsonar.userHome=$WORKSPACE  // <-- CHANGE PROPERTY TO userHome
             '''
         }
     }
-}         
+}  
         stage("quality gate"){
            steps {
                 script {
