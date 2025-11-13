@@ -27,15 +27,10 @@ pipeline{
         stage("Sonarqube Analysis "){
     steps{
         withSonarQubeEnv('SonarQube') {
-            sh '''
-                $SCANNER_HOME/bin/sonar-scanner \
-                -Dsonar.projectName=Hotstar \
-                -Dsonar.projectKey=Hotstar \
-                -Dsonar.userHome=$WORKSPACE  // <-- CHANGE PROPERTY TO userHome
-            '''
+            sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar -Dsonar.projectKey=Hotstar -Dsonar.userHome=$WORKSPACE'''
         }
     }
-}  
+}
         stage("quality gate"){
            steps {
                 script {
