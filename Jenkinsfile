@@ -27,18 +27,15 @@ pipeline{
         stage("Sonarqube Analysis "){
     steps{
         withSonarQubeEnv('SonarQube') {
-            // Set HOME to the workspace to force the cache to be created there
             sh '''
-                sh '''
                 $SCANNER_HOME/bin/sonar-scanner \
                 -Dsonar.projectName=Hotstar \
                 -Dsonar.projectKey=Hotstar \
-                -Dsonar.scanner.home=$WORKSPACE
+                -Dsonar.scanner.home=$WORKSPACE 
             '''
         }
     }
-}
-         
+}         
         stage("quality gate"){
            steps {
                 script {
