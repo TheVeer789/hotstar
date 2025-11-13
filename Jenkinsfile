@@ -24,17 +24,18 @@ pipeline{
                 sh "npm install"
             }
         }
-        stage("Sonarqube Analysis "){
-    steps{
-        withSonarQubeEnv('SonarQube') {
-           sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar -Dsonar.projectKey=Hotstar -Dsonar.userHome=$WORKSPACE'''
+         stage("Sonarqube Analysis "){
+            steps{
+                withSonarQubeEnv('SonarQube') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
+                    -Dsonar.projectKey=Hotstar '''
+                }
+            }
         }
-    }
-}
         stage("quality gate"){
            steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
                 }
             } 
         }
