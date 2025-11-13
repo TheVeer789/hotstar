@@ -32,6 +32,7 @@ pipeline{
                 export HOME=\$WORKSPACE
                 $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
                 -Dsonar.projectKey=Hotstar
+                -Dsonar.scanner.home=.
             '''
         }
     }
