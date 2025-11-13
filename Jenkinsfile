@@ -25,13 +25,17 @@ pipeline{
             }
         }
         stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('SonarQube') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
-                    -Dsonar.projectKey=Hotstar '''
-                }
-            }
+    steps{
+        withSonarQubeEnv('SonarQube') {
+            // Set HOME to the workspace to force the cache to be created there
+            sh '''
+                export HOME=\$WORKSPACE
+                $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
+                -Dsonar.projectKey=Hotstar
+            '''
         }
+    }
+}
          
         stage("quality gate"){
            steps {
